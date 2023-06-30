@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HangMan</title>
+  </head>
+  <body>
+    <h1>Jogo da forca!</h1>
+    <script>
+      // Lista de palavras
+      let words = [
+        "javascript",
+        "macaco",
+        "gato",
+        "cachorro",
+        "bolo",
+        "coxinha",
+      ];
+      // Escolhendo a palavra
+      let word = words[Math.floor(Math.random() * words.length)];
+
+      // Array da resposta
+      let answerArray = [];
+      for (let i = 0; i < word.length; i++) {
+        answerArray[i] = " _ ";
+      }
+      let remainingLetters = word.length;
+
+      // Array de palavras ultilizadas
+      let wordsUsed = [];
+
+      //Quantidade de adivinhas
+      let guessWrongTry = 0;
+      let didIguessALetter = false;
+
+      //função de checagem se ja usei essa letra
+      function didIUsedThisLetter(word) {
+        for (const wordUsed of wordsUsed) {
+          if (wordUsed === word) {
+            return true;
+          } else return false;
+        }
+      }
+
+      // Loop do game
+      while (remainingLetters > 0 && guessWrongTry < 5) {
+        // Mostrando o progresso do jogador
+        alert(answerArray.join(""));
+
+        // Pegando a letra q o jogador quer discobrir
+        let guess = prompt(
+          "Adivinha a letra, ou click cancel para parar de jogar "
+        );
+        if (guess === null) {
+          //Saindo do loop com cancel
+          break;
+        } else if (guess.length !== 1) {
+          alert("Por favor insira uma letra");
+        } else if (didIUsedThisLetter(guess.toLowerCase())) {
+          alert("Por insira outra letra essa ja foi usada");
+        } else {
+          // Atualizando o status do jogo
+          wordsUsed.push(guess.toLowerCase());
+          for (let j = 0; j < word.length; j++) {
+            if (word[j] === guess.toLowerCase()) {
+              answerArray[j] = guess;
+              remainingLetters--;
+              didIguessALetter = true;
+            }
+          }
+          if (!didIguessALetter) {
+            guessWrongTry++;
+          }
+          didIguessALetter = false;
+        }
+      }
+      alert(answerArray.join(""));
+      alert("Parabens! A repostas era " + word);
+      console.log(wordsUsed);
+      guessTry = 0;
+    </script>
+  </body>
+</html>
