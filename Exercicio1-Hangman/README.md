@@ -2,8 +2,10 @@
 
 ---
 
-Foi criado um jogo da forcar usando o sistema de alert do Js
-O jogo você pode ter 5 erros
+Foi criado um jogo da forcar usando o sistema de alert do Js.
+--
+O jogo você pode ter 5 erros no máximo
+---
 São poucas palavras que inclui comidas, animais e tecnologia.
 
 ## #Para visualizar
