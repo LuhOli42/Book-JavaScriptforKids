@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Ache o tesouro!</title>
+  </head>
+  <body>
+    <h1 id="Headling">Ache o tesouro!</h1>
+    <img
+      id="map"
+      width="600"
+      height="600"
+      src="treasuremap.webp"
+      alt="Treasure map"
+    />
+    <p id="distance"></p>
+    <p id="amout-of-click"></p>
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <script>
+      // funcao de criar um numero aleatorio de 0 ao tamanho do mapa
+      function getRandomNumber(size) {
+        return Math.floor(Math.random() * size);
+      }
+
+      // funcao de calcular a distancia do click e do target
+      function getDistance(event, target) {
+        var diffX = event.offsetX - target.x;
+        var diffy = event.offsetY - target.y;
+        return Math.sqrt(diffX * diffX + diffy * diffy);
+      }
+      // Funcao de mostrar a dica
+      function getDistanceHint(distance) {
+        if (distance < 20) {
+          return "Fervendo";
+        } else if (distance < 40) {
+          return "Muito quente!";
+        } else if (distance < 80) {
+          return "Quente";
+        } else if (distance < 160) {
+          return "Morno";
+        } else if (distance < 320) {
+          return "Frio";
+        } else if (distance < 400) {
+          return "Muito frio";
+        } else {
+          return "Congelante!";
+        }
+      }
+      //  Set up das variaveis
+      let width = 600;
+      let height = 600;
+      let clicks = 0;
+
+      // Criando um numero aleatorio pro target
+      let target = {
+        x: getRandomNumber(width),
+        y: getRandomNumber(height),
+      };
+
+      //Adicionar a funçao click na img
+      $("#map").click(function (event) {
+        clicks++;
+
+        // Calculando distancia do target
+        let distance = getDistance(event, target);
+        console.log(distance);
+        // CConverstando distancia do target
+        let distanceHint = getDistanceHint(distance);
+        // Avisando que terminou o jogo
+        $("#distance").text(distanceHint);
+        if (distance < 15) {
+          alert("Você achou o tesouro em " + clicks + " clicks!");
+        } else if (clicks >= 100) {
+          alert("Game Over");
+        } else if (clicks < 100) {
+          $("#amout-of-click").text("Faltam " + [100 - clicks] + " clicks!");
+        }
+      });
+    </script>
+  </body>
+</html>
